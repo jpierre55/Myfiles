@@ -1,0 +1,59 @@
+
+to install apache
+yum list httpd
+
+sudo yum install -y httpd
+
+sudo systemctl start httpd.service
+
+sudo systemctl enable httpd.service
+
+
+curl + website
+
+
+To install mysql
+
+yum list mariadb-server mariadb
+
+sudo yum install mariadb-server mariadb
+
+sudo systemctl start mariadb
+
+configue mysql
+sudo mysql_secure_installation
+setup password:
+remove anonymous: yes
+disallow root login remotely: yes
+remove test database and access to it: yes
+reload privilege tables now: yes
+
+sudo enable mariadb-service
+
+mysql -u root -p
+
+serving HtML with PHP
+
+yum list php php-mysqlnd
+
+sudo yum install -y php php-mysqlnd
+
+sudo systemctl restart httpd.service
+
+create info.php file in /etc/html/www folder to test
+<?php
+
+phpinfo();
+
+?>
+
+
+to modify httpd.conf
+sudo vim /etc/httpd/conf/httpd.conf
+
+
+ 
+
+
+
+
