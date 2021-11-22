@@ -1,0 +1,50 @@
+mysql -u root -p
+
+To create a user
+
+CREATE USER 'jackson'@'localhost' IDENTIFIED BY 'yourpassword';
+
+GRANT ALL PRIVILEGED ON *.* TO 'jackson'@'localhost' WITH GRANT OPTION;
+
+SHOW GRANTS FOR 'jackson'@'localhost';
+
+Create database
+
+
+show databases;
+
+CREATE DATABASES LearnToProgram;
+
+USE databsename;
+
+Create a table
+
+SHOW TABLES;
+
+CREATE TABLE courses (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name CHAR(25), teacher CHAR(25));
+
+DESC courses
+
+Inserer nan table
+
+INSERT INTO courses (name, teacher) VALUES ('Intro to Server Admin','Jackson Pierre');
+
+afiche tab
+
+SELECT * FROM courses;
+
+To update data
+
+UPDATE courses SET name = 'Jackson Jean Pierre' WHERE id = 1;
+
+To delete a database
+
+DROP DATABASE databasename;
+
+
+Establish database connection
+
+
+
+
+
