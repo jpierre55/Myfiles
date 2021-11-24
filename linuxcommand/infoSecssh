@@ -1,0 +1,23 @@
+sudo vim /etc/ssh/sshd_config
+
+uncomment permitrootlogin yes
+sudo systemctl reload sshd
+
+adding key
+
+sudo yum install -y epel-release mod_ssl
+sudo service mariadb stop
+
+sudo yum install -y python-certbot-apache
+sudo certbot --apache -d example.ht -d www.example.com -d jack.example.com
+type you email address
+agree the term
+y
+take option 2 for https redirection
+sudo certbot renew
+
+
+automatic renew certificate
+sudo crontab -e
+
+00**1 /usr/bin/certbot renew >> /var/log/sslrenew.log
