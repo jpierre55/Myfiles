@@ -1,0 +1,149 @@
+echo "%admin ALL=(ALL) ALL" >> /etc/sudoers.d/admin
+
+date -d "+180 days" +%F
+
+    1. Create the new file /etc/sudoers.d/consultants and add the following content to it. You can use the sudo vim /etc/sudoers.d/consultants command to perform this step. 
+       %consultants  ALL=(ALL) ALL
+       
+             
+             
+             
+              # Overrides default umask configuration
+       if [ $UID -gt 199 ] && [ "`id -gn`" = "`id -un`" ]; then
+           umask 007
+       else
+           umask 022
+       fi
+       
+      
+      
+       if you want 022 for all users
+       
+       # Overrides default umask configuration
+umask 022
+
+
+
+
+
+
+ip link show - display interfaces
+ip -S link show (interfaces)- to display traffic
+ip addr show - display ip address
+ip route - check route
+ss -ta - display socket statistic - troubleshouting port and services
+tracepath, traceroute - to reach remoste host through multiple routers
+nmcli con show - display a list of all connection
+nmcli con show --active - list only active connection
+
+
+
+
+       
+       add a connection
+       
+       nmcli con add con-name eno2 type ethernet ifname eno2 \
+ipv4.address 192.168.0.5/24 ipv4.gateway 192.168.0.254
+       
+       nmcli con mod static-ens3 ipv4.address 192.0.2.2/24 \
+ipv4.gateway 192.0.2.254
+       
+       
+       
+       configure static network connection in rehdat 8 (by modifying ifcfg-* file
+       
+       DEVICE=INTERFACE NAME
+       BOOTPROTO=NONE
+       ONBOOT=YES
+       IPADDR= IP ADDRESS
+       PREFIX= 24 BY EXAMPLE
+       GATEWAY= DEFAULT GATEWAY
+       DOMAIN=DOMAIN NAME
+       
+       systemctl start NetworkManager
+       systemctl stop NetworkManager
+       systemctl status NetworkManager
+       systemctl restart NetworkManager
+       nmcli connection reload
+       nmcli con load /etc/sysconfig/network-scripts/ifcfg-interface name
+       nmcli con up "interface name"
+       
+       by entering command in command line
+       
+       nmcli con mod enp0s3 ipv4.addresses 192.168.0.1/24
+       nmcli con mod enp0s3 ipv4.gateway 192.168.0.1
+       nmcli con mod enp0s3 ipv4.method manual
+       nmcli con mod enp0s3 ipv4.dns 192.168.0.1
+       
+       
+       hostnamectl set-hostname host.example.com
+       hostnamectl status
+       
+       To edit network connection
+       nmcli con edit interface name
+       print
+       set (options)
+       save persistent
+       activate interface name
+       
+       
+       you can create a YAML file to edit the connction
+       
+       ~/set-default-gateway.yml
+       
+       ---
+       routes:
+       - destination: ip addr /24
+       next-hop-address: ip
+       next-hop-interface: interface name
+        nmstatectl set ~/set-default-gateway.yml
+        
+        
+        
+        Display all socket active or inactive
+        systemctl list-units --type=socket --all
+        
+        
+        
+        display all service unit
+        systemctl list-units --type=service
+        
+        List the enabled or disabled states of all service units
+        systemtctl list-unit-files --type=service
+        
+        Display dependencies
+        systemctl list-dependencies sshd.service
+        
+        
+        
+        prevent service to start
+        systemctl mask sendmail.service
+        systemctl unmask sendmail
+        
+        systemctl is-active servicename
+        systemctl is-enabled servicename
+        
+        systemctl start servicename
+        systemctl stop servicename
+        
+        systemctl enable servicename
+        systemctl disable servicename
+        
+        
+        
+        ssh-keygen -f user@server
+        ssh-copy-id -i (keypath) user@server
+        ssh -i (keypath) user@server hostname
+        eval $(ssh-agent)
+        ssh-add keypath
+        
+        parted /dev/sdb1/ mklabel msdos
+        parted /dev/sdb1/ mklabel gpt
+        parted /dev/vdb mkpart primary xfs 2048s 1000MB
+        mkpart
+        udevadm settle
+        mkfs.ext4 ou xfs /dev/sdb1
+        
+        Verifier size of journalctl storage
+        journalctl | grep -E 'Runtime|System journal'
+        
