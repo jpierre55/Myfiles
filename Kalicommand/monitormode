@@ -1,0 +1,10 @@
+  GNU nano 4.8                                         monitormode                                          Modified  
+ifconfig wlan down
+iwconfig wlan mode monitor
+ifconfig wlan up
+
+2)
+
+ifconfig wlan down
+airmon-ng check kill
+airmon-ng start wlan
