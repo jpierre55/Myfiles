@@ -147,3 +147,68 @@ ipv4.gateway 192.0.2.254
         Verifier size of journalctl storage
         journalctl | grep -E 'Runtime|System journal'
         
+        
+        
+        Ubuntu command
+        To add a user
+        
+        adduser jumpcloud
+        
+        To confirm that the newly added user was created, view the
+        cat /etc/passwd | grep username
+        
+        id username
+        
+        Add the new user to the sudo group
+        usermod -aG sudo username
+        
+        groups username
+        
+        the sudoers file should be accessed by executing the command
+        visudo
+        How to restrict sudo users from executing certain commands
+As we pointed out earlier, you might need to limit sudo users from running certain system commands. To accomplish this, you need to create a sudo rule in the  /etc/sudoers.d directory.
+
+For demonstration, we will create a rule called jumpcloud which restricts the sudo user from upgrading the packages to their latest versions.
+
+# vim /etc/sudoers.d/jumpcloud 
+
+Next, copy and paste the line shown and save the changes.
+
+jumpcloud ALL=(ALL)!/usr/bin/apt upgrade
+
+The rule indicates that the jumpcloud user can execute all commands as the root user with the exception of the apt upgrade command. Note that you need to provide the full path of the command prefixed by an exclamation mark.
+
+To find the full path of a command, use the which command syntax as shown.
+
+$ which command
+
+When the user tries to 
+How to run specific sudo commands without a password 
+Sometimes, you might need to run some commands without being prompted for a password. This is particularly helpful if you are running a script containing a sudo command. 
+
+To achieve this, use the directive NOPASSWD followed by the full path to the command. In the example below, the user can update the package lists without a password prompt.
+ 
+upgrade the packages, an error is splashed on the screen indicating that the user is not allowed to do so.
+jumpcloud ALL=(ALL) NOPASSWD: /usr/bin/apt update
+
+
+Assign Static IP Address On Ubuntu 20.04 LTS Server
+In Ubuntu 20.04 LTS server, network configuration is controlled and managed by netplan utility.
+But during the installation, cloud-init configure a dynamic ip to interface on server if the dhcp server is available. 
+so, to configure a static ip, first we must make sure and confirm that network interface is not managed by cloud-init.
+
+Open cloud-init file “cat /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg” and make sure entry “network: {config: disabled}” is there.
+In case this entry is missing, then add it manually.
+
+To edit network ip address
+vi /etc/netplan/00-installer-config.yaml
+
+Run the following “netplan apply” command to make the above changes into the effect
+
+
+
+        
+        
+        
+        
